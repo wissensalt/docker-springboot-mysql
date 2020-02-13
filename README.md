@@ -28,7 +28,7 @@ Simple Springboot Application Wrapped into Docker and Connected to Mysql Wrapped
     docker container start docker-springboot-app
 ```
 
-### Using DockerHub
+### Using DockerHub without network
 1. Pull Image
 ```sh
     docker pull docker pull knightdocker/docker-springboot-mysql:1.1
@@ -38,6 +38,36 @@ Simple Springboot Application Wrapped into Docker and Connected to Mysql Wrapped
     docker container create --name docker-springboot-app -e="DB_HOST=172.17.0.2" -e="DB_PORT=3306" -e="DB_NAME=employee" -e="DB_USERNAME=root" -e="DB_PASSWORD=P@ssw0rd" -p 8080:8080 knightdocker/docker-springboot-mysql:1.1
 ```
 3. Start Container
+```sh
+    docker container start docker-springboot-app
+```
+
+### Using DockerHub using network
+1. Pull Image
+```sh
+    docker pull docker pull knightdocker/docker-springboot-mysql:1.1
+```
+2. Create Container
+```sh
+    docker container create --name docker-springboot-app -e="DB_HOST=mysqlserver1" -e="DB_PORT=3306" -e="DB_NAME=employee" -e="DB_USERNAME=root" -e="DB_PASSWORD=P@ssw0rd" -p 8080:8080 knightdocker/docker-springboot-mysql:1.1
+```
+3. Create Network
+```sh
+    docker network create network-springboot-app
+```
+4. Connect Network with Mysql Container
+```sh
+    docker network connect network-springboot-app mysqlserver1 
+```
+5. Connect Network with Application
+```sh
+    docker network connect network-springboot-app docker-springboot-app
+```
+6. Check if Network has been Configured Properly
+```sh
+    docker inspect network-springboot-app
+```
+7. Start Container
 ```sh
     docker container start docker-springboot-app
 ```
