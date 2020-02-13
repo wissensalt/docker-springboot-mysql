@@ -27,3 +27,17 @@ Simple Springboot Application Wrapped into Docker and Connected to Mysql Wrapped
 ```sh
     docker container start docker-springboot-app
 ```
+
+### Using DockerHub
+1. Pull Image
+```sh
+    docker pull docker pull knightdocker/docker-springboot-mysql:1.1
+```
+2. Create Container
+```sh
+    docker container create --name docker-springboot-app -e="DB_HOST=172.17.0.2" -e="DB_PORT=3306" -e="DB_NAME=employee" -e="DB_USERNAME=root" -e="DB_PASSWORD=P@ssw0rd" -p 8080:8080 knightdocker/docker-springboot-mysql:1.1
+```
+3. Start Container
+```sh
+    docker container start docker-springboot-app
+```
